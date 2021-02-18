@@ -2,14 +2,12 @@ pragma solidity 0.5.17;
 
 contract Counter {
     
-    event ValueChanged(uint oldValue, uint256 newValue);
-    
     // Public variable of type unsigned int to keep the number of counts
     uint256 public count = 0;
     address private owner;
     
     modifier onlyOwner() {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "Caller is not the owner");
         _;
     }
     
@@ -17,6 +15,8 @@ contract Counter {
         owner = msg.sender;
     }
     
+    event ValueChanged(uint oldValue, uint256 newValue);
+
     // Function that increments our counter
     function increment() public {
         count += 1;
